@@ -82,8 +82,8 @@ HTML = """<!DOCTYPE html>
       <div class="bio">人事10年、何百人の退職を見送ってきました。<br>退職で損しない準備と、次に受かる側の話を、中の人目線で。</div>
     </div>
 
-    <!-- ①無料note（最上段・唯一PRなし）／URL確定後に href を差し替え -->
-    <a class="btn primary" href="#" data-link="note">
+    <!-- ①無料PDFチェックリスト（最上段・唯一PRなし）／同リポジトリの checklist.pdf -->
+    <a class="btn primary" href="checklist.pdf" target="_blank" rel="noopener" data-link="pdf">
       <div class="btn-top">
         <span class="btn-title">退職まるごとチェックリスト</span>
         <span class="badge-free">無料</span>
@@ -91,8 +91,8 @@ HTML = """<!DOCTYPE html>
       <div class="btn-desc">辞める前に見ておく、損しない準備リスト。</div>
     </a>
 
-    <!-- ②退職代行【PR】／afb・もしも 審査後に href を差し替え -->
-    <a class="btn" href="#" data-link="taishoku_daiko">
+    <!-- ②退職代行【PR】／afb・もしも 審査後に href を差し替え。URL未確定のため hidden で非表示 -->
+    <a class="btn" hidden href="#" data-link="taishoku_daiko">
       <div class="btn-top">
         <span class="btn-title">言い出しづらい人の選択肢｜退職代行</span>
         <span class="badge-pr">PR</span>
@@ -100,17 +100,17 @@ HTML = """<!DOCTYPE html>
       <div class="btn-desc">消耗して辞めそうな人へ。合う人には、逃げ道があります。</div>
     </a>
 
-    <!-- ③転職エージェント【PR】／A8 審査後に href を差し替え -->
-    <a class="btn" href="#" data-link="tenshoku_agent">
+    <!-- ③転職エージェント【PR】／A8 転職AGENT Navi（circus）成果=無料相談登録 -->
+    <a class="btn" href="https://px.a8.net/svt/ejp?a8mat=4B67CH+FNTMII+5BJK+5Z6WY" target="_blank" rel="noopener sponsored" data-link="tenshoku_agent">
       <div class="btn-top">
-        <span class="btn-title">次に受かる側へ｜転職エージェント</span>
+        <span class="btn-title">次に受かる側へ｜自分に合う転職エージェント</span>
         <span class="badge-pr">PR</span>
       </div>
-      <div class="btn-desc">焦りは面接に出ます。相場と添削だけ、先に。（無料登録）</div>
+      <div class="btn-desc">焦って一社目に飛びつく前に。合うエージェントをプロが紹介。（無料相談）</div>
     </a>
 
-    <!-- ④転職サイト【PR】／A8 審査後に href を差し替え -->
-    <a class="btn" href="#" data-link="tenshoku_site">
+    <!-- ④転職サイト【PR】／A8 審査後に href を差し替え。URL未確定のため hidden で非表示 -->
+    <a class="btn" hidden href="#" data-link="tenshoku_site">
       <div class="btn-top">
         <span class="btn-title">求人だけ先に見る｜転職サイト</span>
         <span class="badge-pr">PR</span>
