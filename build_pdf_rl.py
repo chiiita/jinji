@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-リードマグネット（公開版クリーン・手順書スタイル）markdown → ブランドPDF。
+リードマグネット（公開版クリーン・手順書スタイル）markdown → ブランドPDF（スマホ最適）。
 reportlab + 内蔵日本語CIDフォント（外部依存なし）。出力 checklist.pdf。
+★スマホ可読性優先：ページを縦長・幅狭（110×196mm）にして画面にフィット、フォント大きめ・行間広め。
 """
 import re, html, pathlib
-from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
@@ -22,8 +22,9 @@ pdfmetrics.registerFontFamily(JP, normal=JP, bold=JP, italic=JP, boldItalic=JP)
 NAVY = colors.HexColor("#2C3E50")
 INK = colors.HexColor("#1F2933")
 SUB = colors.HexColor("#5A6270")
-KGREEN = colors.HexColor("#155C43")
-HGRAY = colors.HexColor("#5A5F66")
+
+# ★スマホ最適ページ（縦長・スマホ縦横比≒9:16）。幅を確保しつつ画面フィット。
+PAGE = (128*mm, 228*mm)
 
 SRC = pathlib.Path("../lead_magnet_公開版クリーン_2026-06-29.md")
 text = SRC.read_text(encoding="utf-8")
@@ -35,21 +36,21 @@ def inl(s):
     s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)
     return s
 
-# styles
-body = ParagraphStyle("body", fontName=JP, fontSize=10.5, leading=17, textColor=INK, spaceAfter=6)
-h2 = ParagraphStyle("h2", fontName=JP, fontSize=14, leading=19, textColor=NAVY, spaceBefore=14, spaceAfter=4)
-h3 = ParagraphStyle("h3", fontName=JP, fontSize=11.5, leading=16, textColor=INK, spaceBefore=10, spaceAfter=2)
-li = ParagraphStyle("li", fontName=JP, fontSize=10.5, leading=16, textColor=INK, leftIndent=12, bulletIndent=2, spaceAfter=3)
-check = ParagraphStyle("check", fontName=JP, fontSize=10.5, leading=18, textColor=INK, leftIndent=4, spaceAfter=2)
-qrcap = ParagraphStyle("qrcap", fontName=JP, fontSize=10, leading=15, textColor=SUB, alignment=TA_CENTER, spaceBefore=5)
-boxp = ParagraphStyle("boxp", fontName=JP, fontSize=10, leading=16, textColor=INK)
-stepp = ParagraphStyle("stepp", fontName=JP, fontSize=10.5, leading=16, textColor=INK)
-cover_kick = ParagraphStyle("ck", fontName=JP, fontSize=11, leading=18, textColor=NAVY, alignment=TA_CENTER)
-cover_title = ParagraphStyle("ct", fontName=JP, fontSize=19, leading=30, textColor=INK, alignment=TA_CENTER)
-cover_sign = ParagraphStyle("cs", fontName=JP, fontSize=10.5, leading=17, textColor=SUB, alignment=TA_CENTER)
+# styles（フォント大きめ・行間広め）
+body = ParagraphStyle("body", fontName=JP, fontSize=12, leading=20, textColor=INK, spaceAfter=9)
+h2 = ParagraphStyle("h2", fontName=JP, fontSize=15.5, leading=22, textColor=NAVY, spaceBefore=16, spaceAfter=5)
+h3 = ParagraphStyle("h3", fontName=JP, fontSize=13.5, leading=19, textColor=INK, spaceBefore=13, spaceAfter=3)
+li = ParagraphStyle("li", fontName=JP, fontSize=12, leading=19, textColor=INK, leftIndent=12, bulletIndent=2, spaceAfter=4)
+check = ParagraphStyle("check", fontName=JP, fontSize=12, leading=22, textColor=INK, leftIndent=2, spaceAfter=3)
+qrcap = ParagraphStyle("qrcap", fontName=JP, fontSize=11, leading=17, textColor=SUB, alignment=TA_CENTER, spaceBefore=6)
+boxp = ParagraphStyle("boxp", fontName=JP, fontSize=11.5, leading=19, textColor=INK)
+stepp = ParagraphStyle("stepp", fontName=JP, fontSize=12, leading=19, textColor=INK)
+cover_kick = ParagraphStyle("ck", fontName=JP, fontSize=11, leading=17, textColor=NAVY, alignment=TA_CENTER)
+cover_title = ParagraphStyle("ct", fontName=JP, fontSize=17, leading=26, textColor=INK, alignment=TA_CENTER)
+cover_sign = ParagraphStyle("cs", fontName=JP, fontSize=11, leading=17, textColor=SUB, alignment=TA_CENTER)
 
-doc = SimpleDocTemplate("checklist.pdf", pagesize=A4,
-                        leftMargin=18*mm, rightMargin=18*mm, topMargin=18*mm, bottomMargin=18*mm,
+doc = SimpleDocTemplate("checklist.pdf", pagesize=PAGE,
+                        leftMargin=11*mm, rightMargin=11*mm, topMargin=12*mm, bottomMargin=12*mm,
                         title="退職で損する人としない人の分かれ目")
 CW = doc.width
 
@@ -58,9 +59,9 @@ def step_box(n, txt):
     t = Table([[p]], colWidths=[CW])
     t.setStyle(TableStyle([
         ("BACKGROUND",(0,0),(-1,-1), colors.HexColor("#F4F7FB")),
-        ("LINEBEFORE",(0,0),(0,-1), 2.2, NAVY),
-        ("LEFTPADDING",(0,0),(-1,-1),10),("RIGHTPADDING",(0,0),(-1,-1),10),
-        ("TOPPADDING",(0,0),(-1,-1),6),("BOTTOMPADDING",(0,0),(-1,-1),6),
+        ("LINEBEFORE",(0,0),(0,-1), 2.4, NAVY),
+        ("LEFTPADDING",(0,0),(-1,-1),9),("RIGHTPADDING",(0,0),(-1,-1),9),
+        ("TOPPADDING",(0,0),(-1,-1),8),("BOTTOMPADDING",(0,0),(-1,-1),8),
     ]))
     return t
 
@@ -69,26 +70,25 @@ def color_box(txt, bg, accent):
     t = Table([[p]], colWidths=[CW])
     t.setStyle(TableStyle([
         ("BACKGROUND",(0,0),(-1,-1), bg),
-        ("LINEBEFORE",(0,0),(0,-1), 2.2, accent),
-        ("LEFTPADDING",(0,0),(-1,-1),11),("RIGHTPADDING",(0,0),(-1,-1),11),
-        ("TOPPADDING",(0,0),(-1,-1),8),("BOTTOMPADDING",(0,0),(-1,-1),8),
+        ("LINEBEFORE",(0,0),(0,-1), 2.4, accent),
+        ("LEFTPADDING",(0,0),(-1,-1),10),("RIGHTPADDING",(0,0),(-1,-1),10),
+        ("TOPPADDING",(0,0),(-1,-1),9),("BOTTOMPADDING",(0,0),(-1,-1),9),
     ]))
     return t
 
 story = []
 title = None
 i, n = 0, len(lines)
-# 1パス目でタイトル取得
 for l in lines:
     if l.strip().startswith("# "):
         title = l.strip()[2:].strip(); break
 
 # cover
-story += [Spacer(1, 60*mm),
+story += [Spacer(1, 38*mm),
           Paragraph("人事10年・何百人の退職を見送ってきた中の人より", cover_kick),
-          Spacer(1, 10*mm),
+          Spacer(1, 8*mm),
           Paragraph(inl(title), cover_title),
-          Spacer(1, 7*mm),
+          Spacer(1, 6*mm),
           HRFlowable(width=54, thickness=3, color=NAVY, spaceBefore=2, spaceAfter=10),
           Paragraph("知らないだけで損する側じゃなく、知ってる側でいられるように。", cover_sign),
           PageBreak()]
@@ -101,13 +101,13 @@ while i < n:
         i += 1; continue
     if s.startswith("## "):
         story.append(Paragraph(inl(s[3:].strip()), h2))
-        story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#E3E0D8"), spaceBefore=2, spaceAfter=6))
+        story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#E3E0D8"), spaceBefore=2, spaceAfter=7))
         i += 1; continue
     if s.startswith("### "):
         story.append(Paragraph(inl(s[4:].strip()), h3)); i += 1; continue
     if s.startswith("---"):
         story.append(HRFlowable(width="100%", thickness=0.7, color=colors.HexColor("#D8D4CB"),
-                                dash=(2,2), spaceBefore=10, spaceAfter=10)); i += 1; continue
+                                dash=(2,2), spaceBefore=12, spaceAfter=12)); i += 1; continue
     if s.startswith(">"):
         q = []
         while i < n and lines[i].strip().startswith(">"):
@@ -117,12 +117,12 @@ while i < n:
             story.append(color_box(bodytxt, colors.HexColor("#F1EFEA"), colors.HexColor("#9097A0")))
         else:
             story.append(color_box(bodytxt, colors.HexColor("#E9F5EF"), colors.HexColor("#1D7050")))
-        story.append(Spacer(1, 4)); continue
+        story.append(Spacer(1, 5)); continue
     if re.match(r"^\d+\.\s", s):
         while i < n and re.match(r"^\d+\.\s", lines[i].strip()):
             m = re.match(r"^(\d+)\.\s(.*)", lines[i].strip())
             story.append(step_box(m.group(1), inl(m.group(2))))
-            story.append(Spacer(1, 4)); i += 1
+            story.append(Spacer(1, 5)); i += 1
         story.append(Spacer(1, 4)); continue
     if s.startswith("- "):
         while i < n and lines[i].strip().startswith("- "):
@@ -132,31 +132,28 @@ while i < n:
             else:
                 story.append(Paragraph(inl(item), li, bulletText="・"))
             i += 1
-        story.append(Spacer(1, 4)); continue
+        story.append(Spacer(1, 5)); continue
     if s == "[[QR]]":
         story.append(Spacer(1, 10))
-        # アイコン＋アカウント名（横並び）
         try:
-            avatar = Image("icon_round.png", width=17*mm, height=17*mm)
+            avatar = Image("icon_round.png", width=15*mm, height=15*mm)
         except Exception:
             avatar = Paragraph("", body)
         name_cell = Paragraph(
             '<b>会社に振り回されたくない人事</b><br/><font color="#5A6270" size="10">@jinji_honne</font>',
-            ParagraphStyle("nm", fontName=JP, fontSize=11.5, leading=16, textColor=INK))
-        head = Table([[avatar, name_cell]], colWidths=[20*mm, CW - 20*mm])
+            ParagraphStyle("nm", fontName=JP, fontSize=11.5, leading=15, textColor=INK))
+        head = Table([[avatar, name_cell]], colWidths=[18*mm, CW - 18*mm])
         head.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
             ("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 0),
             ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
         ]))
         story.append(head)
-        # QRコード
         try:
-            qr = Image("threads_qr.png", width=28*mm, height=28*mm); qr.hAlign = "CENTER"
+            qr = Image("threads_qr.png", width=30*mm, height=30*mm); qr.hAlign = "CENTER"
             story.append(qr)
         except Exception:
             pass
-        # クリック可能リンク（Threadsプロフィールへ）
         story.append(Paragraph(
             '<a href="https://www.threads.com/@jinji_honne"><b><font color="#2C3E50">▶ Threadsでフォローする</font></b></a>'
             '<br/><a href="https://www.threads.com/@jinji_honne"><font color="#5A6270" size="9">www.threads.com/@jinji_honne</font></a>',
