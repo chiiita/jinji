@@ -13,7 +13,7 @@ from reportlab.lib.enums import TA_CENTER
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.cidfonts import UnicodeCIDFont
 from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer, Table,
-                                TableStyle, HRFlowable, PageBreak, KeepTogether)
+                                TableStyle, HRFlowable, PageBreak, KeepTogether, Image)
 
 JP = "HeiseiKakuGo-W5"
 pdfmetrics.registerFont(UnicodeCIDFont(JP))
@@ -40,6 +40,8 @@ body = ParagraphStyle("body", fontName=JP, fontSize=10.5, leading=17, textColor=
 h2 = ParagraphStyle("h2", fontName=JP, fontSize=14, leading=19, textColor=NAVY, spaceBefore=14, spaceAfter=4)
 h3 = ParagraphStyle("h3", fontName=JP, fontSize=11.5, leading=16, textColor=INK, spaceBefore=10, spaceAfter=2)
 li = ParagraphStyle("li", fontName=JP, fontSize=10.5, leading=16, textColor=INK, leftIndent=12, bulletIndent=2, spaceAfter=3)
+check = ParagraphStyle("check", fontName=JP, fontSize=10.5, leading=18, textColor=INK, leftIndent=4, spaceAfter=2)
+qrcap = ParagraphStyle("qrcap", fontName=JP, fontSize=10, leading=15, textColor=SUB, alignment=TA_CENTER, spaceBefore=5)
 boxp = ParagraphStyle("boxp", fontName=JP, fontSize=10, leading=16, textColor=INK)
 stepp = ParagraphStyle("stepp", fontName=JP, fontSize=10.5, leading=16, textColor=INK)
 cover_kick = ParagraphStyle("ck", fontName=JP, fontSize=11, leading=18, textColor=NAVY, alignment=TA_CENTER)
@@ -124,8 +126,42 @@ while i < n:
         story.append(Spacer(1, 4)); continue
     if s.startswith("- "):
         while i < n and lines[i].strip().startswith("- "):
-            story.append(Paragraph(inl(lines[i].strip()[2:]), li, bulletText="・")); i += 1
+            item = lines[i].strip()[2:]
+            if item.startswith("□"):
+                story.append(Paragraph(inl(item), check))
+            else:
+                story.append(Paragraph(inl(item), li, bulletText="・"))
+            i += 1
         story.append(Spacer(1, 4)); continue
+    if s == "[[QR]]":
+        story.append(Spacer(1, 10))
+        # アイコン＋アカウント名（横並び）
+        try:
+            avatar = Image("icon_round.png", width=17*mm, height=17*mm)
+        except Exception:
+            avatar = Paragraph("", body)
+        name_cell = Paragraph(
+            '<b>会社に振り回されたくない人事</b><br/><font color="#5A6270" size="10">@jinji_honne</font>',
+            ParagraphStyle("nm", fontName=JP, fontSize=11.5, leading=16, textColor=INK))
+        head = Table([[avatar, name_cell]], colWidths=[20*mm, CW - 20*mm])
+        head.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+        ]))
+        story.append(head)
+        # QRコード
+        try:
+            qr = Image("threads_qr.png", width=28*mm, height=28*mm); qr.hAlign = "CENTER"
+            story.append(qr)
+        except Exception:
+            pass
+        # クリック可能リンク（Threadsプロフィールへ）
+        story.append(Paragraph(
+            '<a href="https://www.threads.com/@jinji_honne"><b><font color="#2C3E50">▶ Threadsでフォローする</font></b></a>'
+            '<br/><a href="https://www.threads.com/@jinji_honne"><font color="#5A6270" size="9">www.threads.com/@jinji_honne</font></a>',
+            qrcap))
+        i += 1; continue
     story.append(Paragraph(inl(s), body)); i += 1
 
 doc.build(story)
