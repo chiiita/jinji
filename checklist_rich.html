@@ -8,12 +8,12 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: "Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
     color:#1F2933; font-size:14px; line-height:1.85; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  p { margin:0 0 13px; }
+  p { margin:0 0 10px; }
   strong { font-weight:700; }
   .icn { vertical-align:-2px; }
 
   /* 表紙 */
-  .cover { height:198mm; display:flex; flex-direction:column; justify-content:center; text-align:center; page-break-after:always; }
+  .cover { height:182mm; display:flex; flex-direction:column; justify-content:center; text-align:center; page-break-after:always; }
   .cover .kick { color:#2C3E50; font-size:13px; letter-spacing:1px; margin-bottom:20px; }
   .cover h1 { font-size:23px; font-weight:700; line-height:1.6; color:#1F2933; margin:0 4mm; }
   .cover .rule { width:52px; height:3px; background:#2C3E50; margin:24px auto 16px; }
@@ -21,27 +21,28 @@
   .cover .badge { display:inline-block; margin-top:26px; background:#E1F5EE; color:#0F6E56; font-size:12px; font-weight:700; padding:6px 16px; border-radius:999px; }
 
   /* 章見出しバー */
-  .barh { display:flex; align-items:center; gap:10px; background:#2C3E50; border-radius:10px; padding:13px 15px; margin:30px 0 16px; page-break-after:avoid; }
+  .barh { display:flex; align-items:center; gap:10px; background:#2C3E50; border-radius:10px; padding:13px 15px; margin:52px 0 18px; page-break-after:avoid; }
   .barh .num { flex:none; width:28px; height:28px; background:#fff; color:#2C3E50; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; }
   .barh .t { color:#fff; font-size:15px; font-weight:600; line-height:1.4; }
 
-  h3 { font-size:15px; font-weight:700; color:#2C3E50; margin:24px 0 9px; page-break-after:avoid; }
+  h3 { font-size:15px; font-weight:700; color:#2C3E50; margin:40px 0 10px; padding-top:16px; border-top:1px solid #E7E3DA; page-break-after:avoid; }
+  .barh + h3, h3:first-of-type { border-top:none; padding-top:0; margin-top:14px; }
   h3 .dot { color:#D85A30; }
 
   /* 手順ステップ */
-  .step { display:flex; gap:10px; background:#F4F7FB; border-left:3px solid #2C3E50; border-radius:0 8px 8px 0; padding:11px 13px; margin:9px 0; page-break-inside:avoid; }
+  .step { display:flex; gap:10px; background:#F4F7FB; border-left:3px solid #2C3E50; border-radius:0 8px 8px 0; padding:10px 12px; margin:6px 0; page-break-inside:avoid; }
   .step .sn { flex:none; width:20px; height:20px; background:#2C3E50; color:#fff; border-radius:50%; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:2px; }
   .step .sc { font-size:13.5px; line-height:1.75; }
 
   /* コツ / 人事の本音 */
-  .kotsu, .honne { border-radius:0 8px 8px 0; padding:13px 15px; margin:14px 0 18px; font-size:13px; line-height:1.85; page-break-inside:avoid; }
+  .kotsu, .honne { border-radius:0 8px 8px 0; padding:12px 14px; margin:10px 0 6px; font-size:13px; line-height:1.8; page-break-inside:avoid; }
   .kotsu { background:#E9F5EF; border-left:3px solid #1D7050; }
   .honne { background:#F1EFEA; border-left:3px solid #8A8F98; }
   .kotsu .lb { color:#155C43; font-weight:700; }
   .honne .lb { color:#5A5F66; font-weight:700; }
 
   /* 金額例カード */
-  .exrow { display:flex; gap:10px; margin:12px 0 16px; }
+  .exrow { display:flex; gap:10px; margin:8px 0 10px; }
   .exc { flex:1; background:#F4F7FB; border-radius:10px; padding:11px 8px; text-align:center; }
   .exc .l { font-size:11px; color:#5A6270; }
   .exc .v { font-size:21px; font-weight:700; margin:2px 0; }
@@ -70,7 +71,7 @@
   .doc1 .dd { font-size:11px; color:#5F5E5A; margin-top:2px; line-height:1.45; }
 
   /* 注意カットアウト */
-  .warn { background:#FEF6E7; border:1px solid #F5D89A; border-radius:8px; padding:11px 13px; font-size:12.5px; color:#7A5B12; margin:12px 0 16px; line-height:1.75; }
+  .warn { background:#FEF6E7; border:1px solid #F5D89A; border-radius:8px; padding:11px 13px; font-size:12.5px; color:#7A5B12; margin:8px 0 10px; line-height:1.75; }
   .warn strong { color:#8A5A11; }
 
   /* 期限タイムライン見出し */
