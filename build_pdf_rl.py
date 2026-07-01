@@ -55,7 +55,7 @@ doc = SimpleDocTemplate("checklist.pdf", pagesize=PAGE,
 CW = doc.width
 
 def step_box(n, txt):
-    p = Paragraph(f'<b>{n}.</b>&nbsp;&nbsp;{txt}', stepp)
+    p = Paragraph(f'<b>{n}.</b>　{txt}', stepp)
     t = Table([[p]], colWidths=[CW])
     t.setStyle(TableStyle([
         ("BACKGROUND",(0,0),(-1,-1), colors.HexColor("#F4F7FB")),
@@ -87,7 +87,8 @@ for l in lines:
 story += [Spacer(1, 38*mm),
           Paragraph("人事10年・何百人の退職を見送ってきた中の人より", cover_kick),
           Spacer(1, 8*mm),
-          Paragraph(inl(title), cover_title),
+          Paragraph('辞める人を何百人も見送ってきた<br/>人事が知ってる、<br/>'
+                    '退職で“損する人”と<br/>“しない人”の分かれ目', cover_title),
           Spacer(1, 6*mm),
           HRFlowable(width=54, thickness=3, color=NAVY, spaceBefore=2, spaceAfter=10),
           Paragraph("知らないだけで損する側じゃなく、知ってる側でいられるように。", cover_sign),
