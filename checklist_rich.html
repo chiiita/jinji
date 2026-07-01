@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>退職まるごとチェックリスト</title>
+<style>
+  @page { size: 128mm 228mm; margin: 15mm 13mm 16mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    color:#1F2933; font-size:14px; line-height:1.85; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  p { margin:0 0 13px; }
+  strong { font-weight:700; }
+  .icn { vertical-align:-2px; }
+
+  /* 表紙 */
+  .cover { height:198mm; display:flex; flex-direction:column; justify-content:center; text-align:center; page-break-after:always; }
+  .cover .kick { color:#2C3E50; font-size:13px; letter-spacing:1px; margin-bottom:20px; }
+  .cover h1 { font-size:23px; font-weight:700; line-height:1.6; color:#1F2933; margin:0 4mm; }
+  .cover .rule { width:52px; height:3px; background:#2C3E50; margin:24px auto 16px; }
+  .cover .sign { color:#6B7280; font-size:13px; margin:0 6mm; }
+  .cover .badge { display:inline-block; margin-top:26px; background:#E1F5EE; color:#0F6E56; font-size:12px; font-weight:700; padding:6px 16px; border-radius:999px; }
+
+  /* 章見出しバー */
+  .barh { display:flex; align-items:center; gap:10px; background:#2C3E50; border-radius:10px; padding:13px 15px; margin:30px 0 16px; page-break-after:avoid; }
+  .barh .num { flex:none; width:28px; height:28px; background:#fff; color:#2C3E50; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; }
+  .barh .t { color:#fff; font-size:15px; font-weight:600; line-height:1.4; }
+
+  h3 { font-size:15px; font-weight:700; color:#2C3E50; margin:24px 0 9px; page-break-after:avoid; }
+  h3 .dot { color:#D85A30; }
+
+  /* 手順ステップ */
+  .step { display:flex; gap:10px; background:#F4F7FB; border-left:3px solid #2C3E50; border-radius:0 8px 8px 0; padding:11px 13px; margin:9px 0; page-break-inside:avoid; }
+  .step .sn { flex:none; width:20px; height:20px; background:#2C3E50; color:#fff; border-radius:50%; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:2px; }
+  .step .sc { font-size:13.5px; line-height:1.75; }
+
+  /* コツ / 人事の本音 */
+  .kotsu, .honne { border-radius:0 8px 8px 0; padding:13px 15px; margin:14px 0 18px; font-size:13px; line-height:1.85; page-break-inside:avoid; }
+  .kotsu { background:#E9F5EF; border-left:3px solid #1D7050; }
+  .honne { background:#F1EFEA; border-left:3px solid #8A8F98; }
+  .kotsu .lb { color:#155C43; font-weight:700; }
+  .honne .lb { color:#5A5F66; font-weight:700; }
+
+  /* 金額例カード */
+  .exrow { display:flex; gap:10px; margin:12px 0 16px; }
+  .exc { flex:1; background:#F4F7FB; border-radius:10px; padding:11px 8px; text-align:center; }
+  .exc .l { font-size:11px; color:#5A6270; }
+  .exc .v { font-size:21px; font-weight:700; margin:2px 0; }
+  .exc .n { font-size:10px; color:#8A8F98; }
+  .v-coral { color:#D85A30; } .v-teal { color:#0F6E56; } .v-blue { color:#185FA5; }
+
+  /* 3択・カード群 */
+  .cards { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin:6px 0 10px; }
+  .cardg { border-radius:9px; padding:10px 7px; text-align:center; }
+  .cardg .ct { font-size:12px; font-weight:700; margin-top:4px; }
+  .cardg .cs { font-size:10.5px; margin-top:2px; line-height:1.4; }
+  .c-blue { background:#E6F1FB; } .c-blue .ct{color:#0C447C;} .c-blue .cs{color:#185FA5;}
+  .c-teal { background:#E1F5EE; } .c-teal .ct{color:#0F6E56;} .c-teal .cs{color:#1D9E75;}
+  .c-pink { background:#FBEAF0; } .c-pink .ct{color:#993556;} .c-pink .cs{color:#D4537E;}
+
+  .cards2 { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin:6px 0 12px; }
+  .box2 { border-radius:9px; padding:11px 12px; }
+  .box2 .h { font-size:12.5px; font-weight:700; margin-bottom:5px; }
+  .box2 .b { font-size:12px; line-height:1.7; color:#3D4652; }
+  .b-out { background:#FAECE7; } .b-out .h{color:#993C1D;}
+  .b-in { background:#E1F5EE; } .b-in .h{color:#0F6E56;}
+
+  .docs { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:6px 0 10px; }
+  .doc1 { background:#F1EFE8; border-radius:8px; padding:9px 11px; }
+  .doc1 .dt { font-size:12.5px; font-weight:700; color:#2C3E50; }
+  .doc1 .dd { font-size:11px; color:#5F5E5A; margin-top:2px; line-height:1.45; }
+
+  /* 注意カットアウト */
+  .warn { background:#FEF6E7; border:1px solid #F5D89A; border-radius:8px; padding:11px 13px; font-size:12.5px; color:#7A5B12; margin:12px 0 16px; line-height:1.75; }
+  .warn strong { color:#8A5A11; }
+
+  /* 期限タイムライン見出し */
+  .tll { font-size:12px; font-weight:600; color:#5A6270; margin:2px 0 6px; }
+
+  /* 退職金バー */
+  .taxbar { margin:8px 0 12px; }
+  .taxbar .row { display:flex; align-items:center; gap:8px; margin:5px 0; }
+  .taxbar .yr { flex:none; width:74px; font-size:12px; font-weight:700; color:#2C3E50; }
+  .taxbar .bar { height:22px; background:#E1F5EE; border-radius:5px; display:flex; align-items:center; padding:0 8px; font-size:11.5px; color:#0F6E56; font-weight:700; }
+
+  /* チェックリスト */
+  .clhead { background:#2C3E50; color:#fff; border-radius:10px 10px 0 0; padding:10px 13px; font-size:15px; font-weight:700; margin-top:20px; }
+  .clsub { font-size:13px; font-weight:700; color:#2C3E50; margin:14px 0 6px; padding-left:2px; border-left:4px solid #D85A30; padding-left:8px; }
+  .chk { display:flex; gap:9px; align-items:flex-start; padding:5px 2px; font-size:13.5px; page-break-inside:avoid; }
+  .chk .bx { flex:none; width:16px; height:16px; border:2px solid #9AA3AF; border-radius:4px; margin-top:2px; }
+
+  /* CTA */
+  .cta { background:#F6F8FB; border:1px solid #E3E6EB; border-radius:12px; padding:18px 16px; margin-top:16px; text-align:center; page-break-inside:avoid; }
+  .cta .who { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px; }
+  .cta .who img { width:46px; height:46px; border-radius:50%; }
+  .cta .who .nm { text-align:left; }
+  .cta .who .nm b { font-size:13.5px; } .cta .who .nm span { font-size:11px; color:#5A6270; }
+  .cta p { font-size:13px; text-align:left; line-height:1.8; }
+  .cta .qr { width:110px; height:110px; margin:12px auto 6px; }
+  .cta .flw { display:inline-block; background:#2C3E50; color:#fff; font-size:13px; font-weight:700; padding:9px 22px; border-radius:999px; text-decoration:none; margin-top:4px; }
+  .cta .url { font-size:10.5px; color:#5A6270; margin-top:8px; }
+
+  .lead { font-size:14.5px; line-height:1.9; }
+  hr.sep { border:none; border-top:1px dashed #D8D4CB; margin:16px 0; }
+</style>
+</head>
+<body>
+
+<!-- 表紙 -->
+<section class="cover">
+  <div class="kick">人事10年・何百人の退職を見送ってきた中の人より</div>
+  <h1>辞める人を何百人も見送ってきた人事が知ってる、<br>退職で“損する人”と“しない人”の分かれ目</h1>
+  <div class="rule"></div>
+  <div class="sign">知らないだけで損する側じゃなく、知ってる側でいられるように。</div>
+  <div><span class="badge">保存版チェックリスト付き</span></div>
+</section>
+
+<!-- リード -->
+<p class="lead">退職で損する人と、しない人。その差は、能力でも要領でもありません。<strong>「会社が黙ってたことを、先に知ってたかどうか」</strong>だけです。</p>
+<p>わたしは中堅企業の人事を10年、採用の面接から、辞めていく人の手続きまで、同じ席のこっち側で見てきました。会社は、辞める人に損な情報を進んでは教えません。意地悪ではなく、教える義務がないからです。でも、知らないだけで数十万円が変わることが、本当にあります。</p>
+<p>この冊子は「何をすべきか」だけでなく、<strong>「具体的にどう動くか」</strong>を手順で、最後に<strong>保存版チェックリスト</strong>も付けました。上から順に、自分に関係あるところだけ拾ってください。</p>
+
+<!-- 1章 -->
+<div class="barh"><span class="num">1</span><span class="t">会社が黙ってる「辞め方」の損</span></div>
+
+<h3>有給は、あなたの権利です</h3>
+<p>辞めると決めた人が一番よく捨てているのが、残った有給。会社の温情ではなく、法律で決まったあなたの権利です。退職日から逆算して消化前提で組むだけで、数万円〜十数万円が変わります。</p>
+<div class="exrow">
+  <div class="exc"><div class="l">有給10日を捨てると</div><div class="v v-coral">約10万円</div><div class="n">※日給1万円の例</div></div>
+</div>
+<div class="step"><span class="sn">1</span><span class="sc"><strong>残日数を確認。</strong>給与明細か勤怠システム。なければ総務・人事に「有給の残日数を教えて」と一言。</span></div>
+<div class="step"><span class="sn">2</span><span class="sc"><strong>退職日を「最終出社＋有給消化」で設計。</strong>有給10日なら最終出社を10日前倒しし、翌日から有給で退職日まで繋ぐ。</span></div>
+<div class="step"><span class="sn">3</span><span class="sc"><strong>上司には退職日と最終出社日をセットで伝える。</strong>「〇日付で退職、最終出社は〇日希望」で有給消化が自然に込みに。</span></div>
+<div class="kotsu"><span class="lb">コツ：</span>「有給を消化させて」と単独で頼むと角が立ちます。退職日と最終出社日をセットで出し、消化を“お願い”でなく“既定路線”として置くと揉めにくい。</div>
+<div class="honne"><span class="lb">人事の本音：</span>「引き継ぎがあるから有給は難しい」と言われることがありますが、会社が時季をずらせる権利は辞める日を超えては使えません。多くは引き止めの文句です。</div>
+
+<h3>「もらう書類」を辞める前にリスト化</h3>
+<p>辞めてから「あの書類がない」で連絡してくる人を何度も見ました。催促しないと出ないことも。在職中に確認を。</p>
+<div class="docs">
+  <div class="doc1"><div class="dt">離職票</div><div class="dd">失業給付に必須（発行は遅め）</div></div>
+  <div class="doc1"><div class="dt">源泉徴収票</div><div class="dd">年末調整・確定申告で使う</div></div>
+  <div class="doc1"><div class="dt">退職証明書</div><div class="dd">次の手続きで求められる</div></div>
+  <div class="doc1"><div class="dt">年金の番号</div><div class="dd">基礎年金番号がわかるもの</div></div>
+</div>
+<div class="kotsu"><span class="lb">コツ：</span>1枚ずつ催促せず「退職後に送る書類を一通り教えて」とまとめて聞く。離職票だけは会社→ハローワーク手続き後の発行で他より遅い（受取まで2週間前後）。着地時期も押さえて。</div>
+
+<h3>会社に「返すもの」と「返してもらうもの」</h3>
+<div class="cards2">
+  <div class="box2 b-out"><div class="h">返すもの</div><div class="b">保険証（扶養分も）／社員証・入館カード／名刺／貸与品（PC・スマホ・制服）／通勤定期</div></div>
+  <div class="box2 b-in"><div class="h">返してもらう</div><div class="b">預けた私物／年金手帳（会社預かりの場合）／社内預金・積立金の精算</div></div>
+</div>
+<div class="kotsu"><span class="lb">コツ：</span>「健康保険証」は返すと同時に次の保険への切替が必要。返却と切替をセットで動くと、無保険の空白を作らずに済みます。</div>
+
+<h3>自分で言い出せない時の選択肢</h3>
+<p>引き止めが強い、顔を合わせたくない、心が限界——無理に消耗して辞める必要はありません。合う人には<strong>退職代行</strong>という選択肢も。弁護士型・労働組合型など形態差があり、無料相談ができる会社が多いです。使う・使わないはあなたが決めること。</p>
+<div class="honne"><span class="lb">人事の本音：</span>退職代行から連絡が来た社員を何人も送り出しました。人事側は「そこまで追い詰めてたんだな」と受け止めるだけ。気まずさを抱えるのはいつも辞める側だけです。</div>
+
+<!-- 2章 -->
+<div class="barh"><span class="num">2</span><span class="t">辞めた直後のお金、損が出やすい6か所</span></div>
+<p>辞めた瞬間から、会社が裏でやってくれていた手続きが全部こっちに。<strong>期限が短いもの</strong>から動きます。</p>
+
+<div class="tll">▼ 退職後、最初にくる2つの期限</div>
+<svg viewBox="0 0 400 116" style="width:100%;height:auto;margin-bottom:16px;">
+  <line x1="28" y1="28" x2="384" y2="28" stroke="#CDD1D7" stroke-width="2"/>
+  <circle cx="28" cy="28" r="6" fill="#2C3E50"/>
+  <text x="28" y="50" font-size="11" fill="#1F2933" text-anchor="middle" font-weight="700">退職日</text>
+  <circle cx="185" cy="28" r="6" fill="#D85A30"/>
+  <rect x="145" y="60" width="80" height="22" rx="11" fill="#FAECE7"/>
+  <text x="185" y="75" font-size="11" fill="#993C1D" text-anchor="middle" font-weight="700">14日以内</text>
+  <text x="185" y="99" font-size="10.5" fill="#1F2933" text-anchor="middle">国民年金の切替</text>
+  <circle cx="342" cy="28" r="6" fill="#D85A30"/>
+  <rect x="302" y="60" width="80" height="22" rx="11" fill="#FAECE7"/>
+  <text x="342" y="75" font-size="11" fill="#993C1D" text-anchor="middle" font-weight="700">20日以内</text>
+  <text x="342" y="99" font-size="10.5" fill="#1F2933" text-anchor="middle">健康保険を選ぶ</text>
+</svg>
+
+<h3><span class="dot">①</span> 健康保険は3択。しかも20日が勝負</h3>
+<div class="cards">
+  <div class="cardg c-blue"><div class="ct">任意継続</div><div class="cs">今の健保を続ける</div></div>
+  <div class="cardg c-teal"><div class="ct">国民健康保険</div><div class="cs">市区町村</div></div>
+  <div class="cardg c-pink"><div class="ct">家族の扶養</div><div class="cs">条件が合えば</div></div>
+</div>
+<div class="warn"><strong>！20日を過ぎると</strong>任意継続は選べません（協会けんぽ／健保法37条）。まず<strong>両方の金額を出してから</strong>安いほうを選ぶ。</div>
+<div class="step"><span class="sn">1</span><span class="sc"><strong>任意継続の保険料を調べる。</strong>健保組合か協会けんぽに「退職後の任意継続の保険料」を確認（上限あり・在職の2倍にはならない）。</span></div>
+<div class="step"><span class="sn">2</span><span class="sc"><strong>国保の保険料を調べる。</strong>市区町村で「国保料の概算」。前年の源泉徴収票があると正確。</span></div>
+<div class="step"><span class="sn">3</span><span class="sc"><strong>家族の扶養に入れるか確認。</strong>配偶者・親の勤務先に確認してもらう。</span></div>
+<div class="step"><span class="sn">4</span><span class="sc"><strong>3つを比べ、20日以内に申請。</strong>任意継続は健保・協会けんぽ、国保は市区町村へ。</span></div>
+<div class="kotsu"><span class="lb">コツ：</span>どっちが安いかは前年収入と扶養人数で逆転。「先に両方の金額を出してから選ぶ」のが鉄則。20日を過ぎたら戻れません。</div>
+
+<h3><span class="dot">②</span> 国民年金は「払えない」と言っていい</h3>
+<p>収入が止まると支払いがきつい。黙って未納にする人が多いですが、<strong>未納と免除はまったく違います</strong>。</p>
+<div class="step"><span class="sn">1</span><span class="sc"><strong>退職翌日から14日以内に市区町村で切替。</strong>持ち物＝基礎年金番号／マイナンバー／退職日がわかる書類（離職票等）。</span></div>
+<div class="step"><span class="sn">2</span><span class="sc"><strong>払えなければその場で「免除・猶予を申請したい」と伝える。</strong>承認されれば全額〜4分の1免除や納付猶予に（日本年金機構）。</span></div>
+<div class="step"><span class="sn">3</span><span class="sc"><strong>「失業による特例免除」を使う。</strong>前年の所得が高くても対象になりやすい仕組み。離職票を添えて。</span></div>
+<div class="honne"><span class="lb">人事の本音：</span>黙って未納が一番もったいない。免除・猶予は承認されれば「払えなかった期間」として扱いが変わり、将来の年金への影響をおさえられます。</div>
+
+<h3><span class="dot">③</span> 住民税は、辞めても“去年の分”が来る</h3>
+<p>住民税は前年の所得への課税を翌年に後払い。だから<strong>無収入でも去年働いた分の請求が来ます</strong>。</p>
+<div class="step"><span class="sn">1</span><span class="sc"><strong>退職月で払い方が変わる。</strong>1〜5月退職は最後の給与から一括天引きが多い。6〜12月は自分で納付書。</span></div>
+<div class="step"><span class="sn">2</span><span class="sc"><strong>市区町村から納付書が届く。</strong>「無収入なのに税金が」と慌てない心の準備を。</span></div>
+<div class="step"><span class="sn">3</span><span class="sc"><strong>金額・払い方は市区町村で確認。</strong>前年所得・自治体で差が大きい。</span></div>
+<div class="kotsu"><span class="lb">コツ：</span>退職前に「だいたいいくら残るか」を確認しておくと、次章の“お金の地図”に組み込めます。先に知っておくだけで、不意打ちが“予定”に変わります。</div>
+
+<h3><span class="dot">④</span> 退職日が「月末」か「月末前」かで変わる</h3>
+<div class="cards2">
+  <div class="box2 b-out"><div class="h">月末に辞める</div><div class="b">その月の厚生年金・健保が給与から引かれる</div></div>
+  <div class="box2 b-in"><div class="h">月末1日前に辞める</div><div class="b">その月は天引きなし。代わりに自分で国民年金・国保へ切替</div></div>
+</div>
+<p style="font-size:12.5px;color:#5A6270;">どちらが得かは一概に言えません（国保が安いことも）。退職日を選べるときだけ、金額を比べて手取りが多いほうに寄せる。</p>
+
+<h3><span class="dot">⑤</span> 体調を崩して辞める人へ：傷病手当金</h3>
+<p>業務外の病気・けがで働けないなら<strong>傷病手当金</strong>。連続3日の待期のあと4日目から、おおよそ給与の3分の2が通算1年6か月まで（協会けんぽ）。</p>
+<div class="exrow">
+  <div class="exc"><div class="l">月給30万円なら</div><div class="v v-teal">日額 約6,600円</div><div class="n">※式：標準報酬月額÷30×2/3</div></div>
+</div>
+<div class="step"><span class="sn">1</span><span class="sc"><strong>在職中に条件を確認。</strong>健保に「受け取る条件」を電話で。申請書は各健保サイト（医師の証明欄あり）。</span></div>
+<div class="step"><span class="sn">2</span><span class="sc"><strong>退職後も受け取るなら“継続給付”の要件を確認。</strong>退職日まで継続1年以上／退職前日まで連続3日休み／<strong>退職日に出勤しない</strong>／退職時に受給か受給要件を満たす。</span></div>
+<div class="warn"><strong>！見落としがち</strong>最後の挨拶で出社すると、継続給付の条件から外れることが。退職日は出勤しない。</div>
+
+<h3><span class="dot">⑥</span> 退職金にも税金。でも「控除」で大きく変わる</h3>
+<p>退職金にも税金はかかりますが、<strong>退職所得控除</strong>という大きな非課税枠があるので、思うほど引かれません。</p>
+<div class="taxbar">
+  <div class="row"><span class="yr">勤続10年</span><div class="bar" style="width:50%;">400万円まで非課税</div></div>
+  <div class="row"><span class="yr">勤続20年</span><div class="bar" style="width:80%;">800万円まで非課税</div></div>
+</div>
+<p style="font-size:12.5px;color:#5A6270;">枠＝20年まで1年40万円（20年超は70万円／国税庁No.1420）。超えた分もさらに半分にして課税。</p>
+<div class="step"><span class="sn">1</span><span class="sc"><strong>「退職所得の受給に関する申告書」を会社に出す。</strong>出さないと多く引かれ、あとで確定申告の手間に。</span></div>
+<div class="honne"><span class="lb">人事の本音：</span>「退職金からガッツリ取られる」と思い込む人が多いですが、勤続年数がそれなりにあれば税金ゼロの人も珍しくありません。まず勤続年数×40万円と退職金額を並べて。</div>
+
+<!-- 3章 -->
+<div class="barh"><span class="num">3</span><span class="t">誰も教えてくれない“戻ってくるお金”</span></div>
+<h3>確定申告で、税金が戻ることがある</h3>
+<p>年の途中で辞め、その年に再就職しないと年末調整がされず、<strong>所得税を払いすぎたまま</strong>のことがあります（国税庁No.1910）。確定申告（還付申告）で戻ります。</p>
+<div class="warn" style="background:#E9F5EF;border-color:#9FE1CB;color:#0F6E56;"><strong>還付申告は翌年1/1から5年間OK</strong>（国税庁No.2030）。急がなくて大丈夫。</div>
+<div class="step"><span class="sn">1</span><span class="sc"><strong>源泉徴収票を用意</strong>（退職時にもらう紙）。</span></div>
+<div class="step"><span class="sn">2</span><span class="sc"><strong>国税庁「確定申告書作成コーナー」を開く</strong>（スマホ可）。数字を入れると戻る額の概算が出る。</span></div>
+<div class="step"><span class="sn">3</span><span class="sc"><strong>提出。</strong>マイナンバーカードでe-Tax、なければ印刷して税務署へ。</span></div>
+<div class="kotsu"><span class="lb">コツ：</span>考えるより先に手順2まで進めて数字を入れるのが早い。0円なら諦めがつくし、戻るならそのまま提出。家からスマホでできます。</div>
+
+<h3>無収入期間の「いつ・いくら」を地図にする</h3>
+<p>一番の不安は制度名でなく「次の収入まで、どう食いつなぐか」。辞める前に<strong>お金の地図</strong>を1枚。</p>
+<div class="step"><span class="sn">1</span><span class="sc"><strong>当面の手持ち＝</strong>退職金＋貯金＋有給消化分の給与。</span></div>
+<div class="step"><span class="sn">2</span><span class="sc"><strong>失業給付を確認。</strong>離職票・本人確認・写真・通帳を持ってハローワークへ。<strong>いつから・何日分かは離職理由と加入期間で変わる（早見表を鵜呑みにしない）</strong>。</span></div>
+<div class="step"><span class="sn">3</span><span class="sc"><strong>空白期間を計算。</strong>手持ちと給付開始のズレを見る。</span></div>
+<div class="step"><span class="sn">4</span><span class="sc"><strong>固定費を見直す。</strong>家賃・保険・サブスクで空白期間だけ下げられるもの。</span></div>
+<div class="kotsu"><span class="lb">コツ：</span>制度名を全部覚える必要はありません。「いつ・いくら」の地図を1枚持つこと。漠然とした不安は、数字にした瞬間「あと〇か月は大丈夫」に変わります。</div>
+
+<!-- 4章 -->
+<div class="barh"><span class="num">4</span><span class="t">次は“採点される側”で受かるために</span></div>
+<p>わたしは辞める人の机だけでなく、<strong>採用面接の机にも同じ10年</strong>座っていました。「この人は受かる」と思った人には、準備の共通点がありました。</p>
+<div class="step"><span class="sn">1</span><span class="sc"><strong>退職理由を一度紙に書いて整理。</strong>「上司が」で終わる人より「だから次はこうしたい」まで言える人が通る。頭の中だけだと面接で感情が出る。</span></div>
+<div class="step"><span class="sn">2</span><span class="sc"><strong>求人の相場を先に見る。</strong>焦って飛びつく人は「また同じ理由で辞める未来」が面接官に見える。無料の転職サービスで非公開求人を見るだけでも相場感が変わる。</span></div>
+<div class="step"><span class="sn">3</span><span class="sc"><strong>職務経歴書の型を作って添削を受ける。</strong>エージェントは添削も無料。在職中にたたき台を通しておくと、いざ動くとき楽。</span></div>
+<div class="kotsu"><span class="lb">コツ：</span>「焦りが消えてから動く」でなく「焦る前に準備を終わらせておく」。焦りは面接に出ます。在職中の余裕が、最大の武器になります。</div>
+
+<!-- チェックリスト -->
+<div class="clhead">【保存版】辞めるときの やることチェックリスト</div>
+<p style="font-size:12.5px;color:#5A6270;margin:8px 0 4px;">印刷かスクショして、上から潰していってください。関係あるところだけでOK。</p>
+<div class="clsub">■ 退職を決めたら</div>
+<div class="chk"><span class="bx"></span>有給の残日数を確認した</div>
+<div class="chk"><span class="bx"></span>退職日を「最終出社＋有給消化」で設計した</div>
+<div class="chk"><span class="bx"></span>もらう書類4点を会社に確認した</div>
+<div class="chk"><span class="bx"></span>返すもの／返してもらうものをリスト化した</div>
+<div class="clsub">■ 辞めた直後（期限が短い順）</div>
+<div class="chk"><span class="bx"></span>健康保険を3択から選び、20日以内に申請した</div>
+<div class="chk"><span class="bx"></span>国民年金を14日以内に切替した（払えなければ免除申請）</div>
+<div class="chk"><span class="bx"></span>住民税の残額・払い方を確認した</div>
+<div class="chk"><span class="bx"></span>（退職金がある人）勤続年数×40万円と退職金額を並べた</div>
+<div class="clsub">■ 落ち着いたら</div>
+<div class="chk"><span class="bx"></span>確定申告（還付）の要否を確認した</div>
+<div class="chk"><span class="bx"></span>無収入期間の「お金の地図」を1枚作った</div>
+<div class="chk"><span class="bx"></span>求人の相場を見て、職務経歴書のたたき台を作った</div>
+
+<!-- 5章 CTA -->
+<div class="barh"><span class="num">5</span><span class="t">最後に</span></div>
+<p>退職は人生の一場面でしかありません。でも会社員でいる限り、評価も賞与も異動も「知らないと損」の場面はずっと来ます。その都度、<strong>損する側じゃなく知ってる側</strong>でいられるように、中の人目線でThreadsに毎日置いています。</p>
+<p>辞めるのは、逃げじゃない。あなたが悪いんじゃない。ただ、損していい理由も、ない。</p>
+
+<div class="cta">
+  <div class="who"><img src="icon_round.png" alt=""><div class="nm"><b>会社に振り回されたくない人事</b><br><span>@jinji_honne</span></div></div>
+  <p>このチェックリストは<strong>保存して、必要なときにまた開いて</strong>ください。いざという時の“次の一手”が届くように、フォローしておいてもらえたら嬉しいです。</p>
+  <img class="qr" src="threads_qr.png" alt="QR">
+  <div><a class="flw" href="https://www.threads.com/@jinji_honne">▶ Threadsでフォローする</a></div>
+  <div class="url">www.threads.com/@jinji_honne</div>
+</div>
+
+</body>
+</html>
