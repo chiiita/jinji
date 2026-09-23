@@ -141,7 +141,7 @@ while i < n:
         except Exception:
             avatar = Paragraph("", body)
         name_cell = Paragraph(
-            '<b>会社に振り回されたくない人事</b><br/><font color="#5A6270" size="10">@jinji_honne</font>',
+            '<b>ほんね｜会社が言わない退職のお金</b><br/><font color="#5A6270" size="10">@jinji_honne</font>',
             ParagraphStyle("nm", fontName=JP, fontSize=11.5, leading=15, textColor=INK))
         head = Table([[avatar, name_cell]], colWidths=[18*mm, CW - 18*mm])
         head.setStyle(TableStyle([

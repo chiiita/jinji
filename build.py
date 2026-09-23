@@ -9,15 +9,15 @@ URLの入れ方：各 <a class="cta"> の href を差し替え。未確定リン
 import base64, pathlib
 
 here = pathlib.Path(__file__).parent
-icon = "data:image/jpeg;base64," + base64.b64encode((here / "icon256.png").read_bytes()).decode()
+icon = "data:image/png;base64," + base64.b64encode((here / "icon256.png").read_bytes()).decode()
 
 HTML = """<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>会社に振り回されたくない人事｜退職で損しないために</title>
-<meta name="description" content="人事10年・退職を何百件も見送ってきた中の人が、知らないと損する準備を全部置いています。">
+<title>ほんね｜会社が言わない退職のお金</title>
+<meta name="description" content="辞めると決めた人が、もらえるお金を取りこぼさずに辞められるように。人事の席に10年、辞める人の手続きを内側で見てきた立場から置いています。">
 <style>
   :root { --ink:#26241E; --ink2:#3D3A31; --mut:#6B665A; --mut2:#8A8578; --line:#E6E1D5; --bg:#F7F5F0; --accent:#9A7B55; --icon:#3A4A63; }
   * { box-sizing:border-box; margin:0; padding:0; }
@@ -62,11 +62,11 @@ HTML = """<!DOCTYPE html>
 <main class="wrap">
 
   <header class="hero">
-    <img src="__ICON__" alt="会社に振り回されたくない人事">
-    <div class="kicker">中堅企業の人事 ・ 10年</div>
-    <h1><span class="thin">辞める前に、</span><br>これだけは。</h1>
-    <p>退職を何百件も見送ってきた中の人が、<br>「知らないと損する準備」を全部置いています。</p>
-    <div class="met">— 採用の面接も、退職の手続きも —</div>
+    <img src="__ICON__" alt="ほんね｜会社が言わない退職のお金">
+    <div class="kicker">人事の席に ・ 10年</div>
+    <h1><span class="thin">もらえるお金を、</span><br>取りこぼさずに。</h1>
+    <p>辞めると決めてから退職日までに、<br>順番を間違えると戻せないものがあります。</p>
+    <div class="met">— 期限の早いものから、順番に —</div>
   </header>
 
   <div class="rule"></div>
@@ -75,15 +75,15 @@ HTML = """<!DOCTYPE html>
   <section class="sec">
     <div class="eyebrow"><span class="no">01</span>まず、無料でこれを</div>
     <h2>退職まるごとチェックリスト</h2>
-    <p class="sub">辞めた後のお金の手続きを、いつ・何をするかの手順で。保存版チェックリスト付き。</p>
+    <p class="sub">辞めると決めた日から退職日までに、いつ・何をするか。期限の早い順に並べてあります。</p>
     <div class="list">
       <div class="li"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="t">20日・14日の期限まわり</span></div>
       <div class="li"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3v18M7 8h7a2 2 0 010 4H8a2 2 0 000 4h8"/></svg><span class="t">戻ってくるお金・還付申告</span></div>
       <div class="li"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M8 9h8M8 13h5"/></svg><span class="t">退職金の税金・控除</span></div>
       <div class="li"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M20 6L9 17l-5-5"/></svg><span class="t">やることチェックリスト</span></div>
     </div>
-    <div class="who">辞めるか迷っている／損したくない、すべての人へ。</div>
-    <a class="cta" href="checklist.pdf" target="_blank" rel="noopener">無料で受け取る<span class="s">辞める前でも、見ておくだけで損を防げます</span></a>
+    <div class="who">辞めると決めた方、迷っている方へ。</div>
+    <a class="cta" href="checklist.pdf" target="_blank" rel="noopener">無料で受け取る<span class="s">知っていれば、取りこぼしが1つ減ります</span></a>
   </section>
 
   <div class="secline"></div>
@@ -107,7 +107,7 @@ HTML = """<!DOCTYPE html>
 
   <!-- 03 転職エージェント（A8・転職AGENT Navi） -->
   <section class="sec">
-    <div class="eyebrow"><span class="no">03</span>次に、受かる側へ</div>
+    <div class="eyebrow"><span class="no">03</span>次の会社を決めるなら</div>
     <h2>自分に合う転職エージェント</h2>
     <p class="sub">焦って一社目に飛びつく前に。合うエージェントを、プロが選んで紹介してくれます。</p>
     <div class="list">
@@ -116,7 +116,7 @@ HTML = """<!DOCTYPE html>
       <div class="li"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M5 4h11l3 3v13H5z"/><path d="M9 12h6M9 16h4"/></svg><span class="t">職務経歴書の添削も無料</span></div>
     </div>
     <div class="who">焦って一社目に飛びつきたくない人へ。</div>
-    <a class="cta ghost" href="https://px.a8.net/svt/ejp?a8mat=4B67CH+FNTMII+5BJK+5Z6WY" target="_blank" rel="noopener sponsored">無料で相談する<span class="s">相場も、受かる書類の型も、先に知っておける</span></a>
+    <a class="cta ghost" href="https://px.a8.net/svt/ejp?a8mat=4B67CH+FNTMII+5BJK+5Z6WY" target="_blank" rel="noopener sponsored">無料で相談する<span class="s">相場も、書類の書き方も、先に分かります</span></a>
   </section>
 
   <div class="secline"></div>
@@ -125,21 +125,21 @@ HTML = """<!DOCTYPE html>
   <section class="sec">
     <div class="eyebrow"><span class="no">04</span>20代・第二新卒の方へ</div>
     <h2>20代の転職相談所</h2>
-    <p class="sub">適性や転職の緊急度を、無料で診断。20代専門の相談コースがあります。</p>
+    <p class="sub">20代だけを見ている相談所です。適性や急ぎ具合を、無料で見てもらえます。</p>
     <div class="list">
-      <div class="li"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3a9 9 0 100 18 9 9 0 000-18z"/><path d="M12 8v4l2 2"/></svg><span class="t">適性・転職の緊急度を無料診断</span></div>
+      <div class="li"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3a9 9 0 100 18 9 9 0 000-18z"/><path d="M12 8v4l2 2"/></svg><span class="t">適性と急ぎ具合を無料で見てもらえる</span></div>
       <div class="li"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 14l8-4-8-4-8 4 8 4z"/><path d="M6 11v4c0 1.5 3 2.5 6 2.5s6-1 6-2.5v-4"/></svg><span class="t">20代専門の相談コース</span></div>
       <div class="li"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span class="t">非公開求人への応募も可能</span></div>
     </div>
     <div class="who">20代・第二新卒で、今の会社が合わないと感じる人へ。</div>
-    <a class="cta ghost" href="https://px.a8.net/svt/ejp?a8mat=4B67CI+758T6+10SQ+C4DVL" target="_blank" rel="noopener sponsored">適性を無料で診断する<span class="s">まず自分の市場価値と方向性を知るところから</span></a>
+    <a class="cta ghost" href="https://px.a8.net/svt/ejp?a8mat=4B67CI+758T6+10SQ+C4DVL" target="_blank" rel="noopener sponsored">20代専門の相談を見る<span class="s">今の自分の値段を、先に知っておけます</span></a>
   </section>
 
   <footer class="foot">
     <img src="__ICON__" alt="">
-    <div class="nm">会社に振り回されたくない人事</div>
+    <div class="nm">ほんね｜会社が言わない退職のお金</div>
     <div class="hd">@jinji_honne</div>
-    <p>退職のときだけじゃなく、在職中も「知らないと損」は毎日あります。その都度、知ってる側でいられるように、中の人目線でThreadsに置いています。</p>
+    <p>会社が説明しないまま決まっていくことを、決める前に知っておけるように。人事の席に10年、辞める人の手続きを内側で見てきた立場から、Threadsに置いています。</p>
     <a class="cta" href="https://www.threads.com/@jinji_honne" target="_blank" rel="noopener">Threadsでフォローする</a>
     <div class="prnote">本ページはアフィリエイト広告（PR）を含みます。</div>
   </footer>
